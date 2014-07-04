@@ -1,4 +1,4 @@
-Package: rLandsatThermal
+Package: rLandsat8
 Type: Package
 Title: This package consumes Landsat 8
 Version: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}
