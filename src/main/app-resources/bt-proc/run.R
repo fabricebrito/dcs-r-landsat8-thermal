@@ -14,6 +14,8 @@ load("/application/.usgs.cred.rdata")
 f <- file("stdin")
 open(f)
 
+setwd(TMPDIR)
+
 while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   
   rciop.log("INFO", paste("processing product", ls8.ref))
@@ -21,7 +23,8 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   ls8.url <- rciop.casmeta(field="dclite4g:onlineResource", url=ls8.ref)$output
   
   ls8.identifier <- strsplit(rciop.casmeta(field="dc:identifier", url=ls8.ref)$output, ":")[[1]][2]
-  
+ 
+  rciop.log("INFO", paste("downloading", ls8.url, "to", ls8.identifier, sep=" "))
   DownloadLandsat(url=ls8.url, output.name=ls8.identifier)
   
   rciop.log("INFO", paste("extracting product", ls8.identifier))

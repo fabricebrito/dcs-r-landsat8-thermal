@@ -43,7 +43,7 @@ ReadLandsat8 <- function(product) {
   met <- as.list(as.data.frame(t(met), stringsAsFactors=FALSE))
   
   bands=lapply(raster.files, function(x) {
-    raster(met[[x]]))
+    raster(met[[x]])
   }) 
   
   return(list(metadata=met,
