@@ -1,3 +1,15 @@
+#' Reads a Landsat 8 product
+#' @description Reads a Landsat 8 product
+#'
+#' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory
+#' @return list with metadata and raster bands
+#' @examples \dontrun{
+#' ReadLandsat8("LC80522102014165LGN00")
+#' }
+#'
+#' @export
+#' @import raster
+
 ReadLandsat8 <- function(product) {  
 
   raster.files <- list("aerosol"="file_name_band_1",
