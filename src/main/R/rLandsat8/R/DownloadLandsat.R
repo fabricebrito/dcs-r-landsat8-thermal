@@ -1,3 +1,15 @@
+#' creates a raster with the brightness temperature extrcted from Landsat tirs1 band
+#' @description Creates a raster with the brightness temperature extrcted from Landsat tirs1 band.
+#'
+#' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory.
+#' @return brightness temperature raster
+#' @examples \dontrun{
+#' DownloadLandsat("http://earthexplorer.usgs.gov/download/4923/LC81370362014185LGN00/STANDARD/INVSVC", "LC80522102014165LGN00")
+#' }
+#'
+#' @export
+#' @import RCurl
+
 DownloadLandsat <- function(url, output.name) {
   # todo: use RCurl instead of the system call
   
