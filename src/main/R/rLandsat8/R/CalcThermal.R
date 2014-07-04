@@ -10,7 +10,7 @@
 #' @export
 #' @import raster
 
-CalcThermal(product) {
+CalcThermal <- function(product) {
   
   l <- ReadLandsat8(product)
 
