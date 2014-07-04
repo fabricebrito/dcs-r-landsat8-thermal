@@ -1,3 +1,15 @@
+#' creates a raster with the temperature extrcted from Landsat tirs1 band
+#' @description Creates a raster with the temperature extrcted from Landsat tirs1 band.
+#'
+#' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory
+#' @return temperature raster
+#' @examples \dontrun{
+#' CalcThermal("LC80522102014165LGN00")
+#' }
+#'
+#' @export
+#' @import raster
+
 CalcThermal(product) {
   
   l <- ReadLandsat8(product)
