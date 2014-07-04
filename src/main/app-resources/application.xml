@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="${artifactId}">
+ <jobTemplates>
+    <jobTemplate id="bt-proc">
+      <streamingExecutable>/application/bt-proc/run.R</streamingExecutable>
+      <defaultParameters>
+        <parameter id="catalogue">http://10.16.10.19/catalogue/cwic/LANDSAT_8/description</parameter>
+          <parameter id="startdate" title="Start date" abstract="Start date of the TOI. Used as queryable for the MERIS Level 1 catalogue" scope="runtime" type="opensearch" target="time:start">2012-04-01</parameter>
+          <parameter id="enddate" title="End date" abstract="End date of the TOI. Used as queryable for the MERIS Level 1 catalogue" scope="runtime" type="opensearch" target="time:end">2012-04-03</parameter>
+          <parameter id="bbox" title="Bounding box" abstract="Bounding box expressed as minx,miny,maxx,maxy" scope="runtime" type="opensearch" target="time:end">14.98,37.74,15.00,37.76</parameter>   
+      </defaultParameters>
+      <defaultJobconf>
+          <property id="mapred.task.timeout">6000000</property>
+      </defaultJobconf>
+    </jobTemplate>
+  </jobTemplates>
+  <workflow id="myworkflow" title="My workflow" abstract="This is my workflow">
+    <workflowVersion>1.0</workflowVersion>
+    <node id="n-bt-proc">
+      <job id="bt-proc"/>
+      <sources>
+        <source refid="cas:series">http://10.16.10.19/catalogue/cwic/LANDSAT_8/description</source>-->
+      </sources>
+      <parameters>
+        <!--<parameter id="param1">value3</parameter>-->
+      </parameters>
+    </node>
+  </workflow>
+</application>
