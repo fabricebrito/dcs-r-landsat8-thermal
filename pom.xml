@@ -164,7 +164,7 @@
 								<argument>CMD</argument>
 								<argument>build</argument>
 								<argument>--binary</argument>
-								<argument>ReoWBcckp</argument>
+								<argument>rLandsat8</argument>
 							</arguments>
 						</configuration>
 					</execution>
@@ -182,7 +182,7 @@
 								<argument>INSTALL</argument>
 								<argument>-l</argument>
 								<argument>${project.build.directory}/R/lib/</argument>
-								<argument>${project.build.directory}/R/src/ReoWBcckp_${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.tar.gz</argument>
+								<argument>${project.build.directory}/R/src/rLandsat8_${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.tar.gz</argument>
 							</arguments>
 						</configuration>
 					</execution>
