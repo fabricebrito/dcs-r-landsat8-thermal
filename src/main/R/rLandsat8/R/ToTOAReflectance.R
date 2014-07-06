@@ -24,8 +24,8 @@ ToTOARadiance <- function(landsat8, band) {
 
   idx <- seq_along(bandnames)[sapply(bandnames, function(x) band %in% x)]
 
-  ml <- landsat8$metadata$[[paste0("reflectance_mult_band_",idx)]]
-  al <- landsat8$metadata$[[paste0("reflectance_add_band_",idx)]]
+  ml <- as.numeric(landsat8$metadata[[paste0("reflectance_mult_band_",idx)]])
+  al <- as.numeric(landsat8$metadata[[paste0("reflectance_add_band_",idx)]])
   
   TOAref <- landsat8$band[[band]] * ml + al
   
