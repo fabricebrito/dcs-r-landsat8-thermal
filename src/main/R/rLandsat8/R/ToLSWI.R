@@ -15,7 +15,7 @@ ToLSWI <- function(landsat8) {
 
   # LSWI=(ρNIR −ρSWIR1)/(ρNIR +ρSWIR1) 
   nir <- ToTOAReflectance(landsat8, "nir")
-  swir1 <- ToTOAReflectance(landsat8, "swir")
+  swir1 <- ToTOAReflectance(landsat8, "swir1")
   
   lswi <- (nir - swir1) / (nir + swir1)  
   
