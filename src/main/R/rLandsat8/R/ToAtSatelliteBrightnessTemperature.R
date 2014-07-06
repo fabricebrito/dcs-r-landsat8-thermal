@@ -25,8 +25,8 @@ ToAtSatelliteBrightnessTemperature <- function(landsat8, band) {
   
   idx <- seq_along(bandnames)[sapply(bandnames, function(x) band %in% x)]
 
-  k1 <- as.numeric(landsat8$metadata$[[paste0("k1_constant_band_",idx)]]
-  k2 <- as.numeric(landsat8$metadata$[[paste0("k2_constant_band_",idx)]]
+  k1 <- as.numeric(landsat8$metadata[[paste0("k1_constant_band_",idx)]])
+  k2 <- as.numeric(landsat8$metadata[[paste0("k2_constant_band_",idx)]])
 
   bt <- k2 / log(k1 / toarad + 1) - 273.15 
 
