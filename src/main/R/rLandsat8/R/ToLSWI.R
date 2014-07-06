@@ -19,6 +19,6 @@ ToLSWI <- function(landsat8) {
   
   lswi <- (nir - swir1) / (nir + swir1)  
   
-  return(swir)
+  return(lswi)
 
 }
