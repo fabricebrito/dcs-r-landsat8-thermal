@@ -4,13 +4,13 @@
 #' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory.
 #' @return brightness temperature raster
 #' @examples \dontrun{
-#' BrightnessTemperature("LC80522102014165LGN00")
+#' ToAtSatelliteBrightnessTemperature("LC80522102014165LGN00")
 #' }
 #'
 #' @export
 #' @import raster
 
-BrightnessTemperature <- function(product) {
+ToAtSatelliteBrightnessTemperature <- function(product) {
   
   l <- ReadLandsat8(product)
 
