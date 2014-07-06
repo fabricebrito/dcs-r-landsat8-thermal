@@ -27,7 +27,7 @@ ToTOARadiance <- function(landsat8, band) {
   ml <- landsat8$metadata$[[paste0("radiance_mult_band_",idx)]]
   al <- landsat8$metadata$[[paste0("radiance_add_band_",idx)]]
   
-  TOArad <- landsat8$band[["tirs1"]] * ml + al
+  TOArad <- landsat8$band[[band]] * ml + al
   
   return(TOArad)
   
