@@ -12,7 +12,7 @@
 #' @export
 #' @import raster
 
-ToTOARadiance <- function(landsat8, band) {
+ToTOAReflectance <- function(landsat8, band) {
 
   bandnames <-c("aerosol", "blue", "green", "red",
   "nir", "swir1", "swir2",
