@@ -5,8 +5,8 @@
 #' @param band Landsat 8 bandname (one of "aerosol", "blue", "green", "red", "nir", "swir1", "swir2", "panchromatic", "cirrus", "tirs1", "tirs2" 
 #' @return TOA Radiance raster
 #' @examples \dontrun{
-#' ls8 <- ReadLandsat8("LC80522102014165LGN00"
-#' r <- ToTOARadiance(ls8, "tirs1)
+#' ls8 <- ReadLandsat8("LC81880342014174LGN00")
+#' r <- ToTOARadiance(ls8, "red")
 #' }
 #'
 #' @export
