@@ -5,7 +5,7 @@
 #' @param band Landsat 8 bandname (one of "aerosol", "blue", "green", "red", "nir", "swir1", "swir2", "panchromatic", "cirrus", "tirs1", "tirs2"
 #' @return TOA Reflectance raster
 #' @examples \dontrun{
-#' ls8 <- ReadLandsat8("LC80522102014165LGN00"
+#' ls8 <- ReadLandsat8("LC80522102014165LGN00")
 #' r <- ToTOAReflectance(ls8, "tirs1)
 #' }
 #'
