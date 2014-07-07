@@ -4,7 +4,7 @@
 #' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory.
 #' @return brightness temperature raster
 #' @examples \dontrun{
-#' ls8 <- ReadLandsat8("LC80522102014165LGN00")
+#' ls8 <- ReadLandsat8("LC81880342014174LGN00")
 #' r <- ToNDVI(ls8)
 #' }
 #'
