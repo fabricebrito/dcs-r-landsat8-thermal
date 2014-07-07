@@ -6,7 +6,7 @@
 #' @return TOA Reflectance raster
 #' @examples \dontrun{
 #' ls8 <- ReadLandsat8("LC80522102014165LGN00")
-#' r <- ToTOAReflectance(ls8, "tirs1)
+#' r <- ToTOAReflectance(ls8, "blue")
 #' }
 #'
 #' @export
