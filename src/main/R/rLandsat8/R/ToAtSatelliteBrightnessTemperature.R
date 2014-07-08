@@ -4,8 +4,8 @@
 #' @param product name of the product, e.g. LC80522102014165LGN00. It must be in the working directory.
 #' @return brightness temperature raster
 #' @examples \dontrun{
-#' ls8 <- ReadLandsat8("LC80522102014165LGN00"
-#' ToAtSatelliteBrightnessTemperature(ls8, "tirs1)
+#' ls8 <- ReadLandsat8("LC80522102014165LGN00")
+#' ToAtSatelliteBrightnessTemperature(ls8, "tirs1")
 #' }
 #'
 #' @export

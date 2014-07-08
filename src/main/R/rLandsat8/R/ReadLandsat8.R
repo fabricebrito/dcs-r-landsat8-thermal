@@ -43,8 +43,9 @@ ReadLandsat8 <- function(product) {
   met <- as.list(as.data.frame(t(met), stringsAsFactors=FALSE))
   
   bands=lapply(raster.files, function(x) {
-    r <- raster(paste0(product, "/", met[[x]]))
+    r <- raster(met[[x]])
     r@title <- names(raster.files)[seq_along(raster.files)[sapply(raster.files, function(a) x %in% a)]]
+    NAvalue(r) <- 0
     return(r)
   }) 
   
