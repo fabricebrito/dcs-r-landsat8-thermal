@@ -24,6 +24,12 @@ ToNBRClass <- function(prefire, postfire) {
   class.mat <- matrix(m, ncol=3, byrow=TRUE)
 
   reclass <- reclassify(10^3 * dNBR(prefire, postfire), class.mat)
+  
+  reclass <- ratify(reclass)
+  rat <- levels(reclass)[[1]]
+  rat$legend  <- c("NA", "Enhanced Regrowth, High", "Enhanced Regrowth, Low", "Unburned", "Low Severity", "Moderate-low Severity", "Moderate-high Severity", "High Severity")
+  levels(reclass) <- rat
+  
   return(reclass)
 
 }
