@@ -13,7 +13,7 @@
 #' @export
 #' @import raster
 
-dNBR <- function(prefire, postfire)
+dNBR <- function(prefire, postfire) {
 
   dnbr <- ToNBR(prefire) - ToNBR(postfire)
 
