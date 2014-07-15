@@ -5,9 +5,12 @@
 #' @param postfire name of the postfire product, e.g. LC80522102014165LGN00. It must be in the working directory.
 #' @return classified Normalized Burn Ratio (NBR) raster
 #' @examples \dontrun{
-#' prels8 <- ReadLandsat8("LC81880342014174LGN00")
-#' postls8 <- ReadLandsat8("")
-#' r <- ToNBRClass(prels8, postls8)
+#' prefire <- "LC82040322013219LGN00"
+#' postfire <- "LC82040322013267LGN00"
+#'
+#' lspre <- ReadLandsat8(prefire)
+#' lspost <- ReadLandsat8(postfire)
+#' r <- ToNBRClass(lspre, lspost)
 #' }
 #'
 #' @export
