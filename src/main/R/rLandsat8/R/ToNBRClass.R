@@ -13,7 +13,7 @@
 #' @export
 #' @import raster
 
-ToNBRClass <- function(prefire, postfire)
+ToNBRClass <- function(prefire, postfire) {
 
   # classify
   #SEVERITY LEVEL Enhanced Regrowth High - 1, Enhanced Regrowth Low - 2, Unburned - 3;
