@@ -16,10 +16,6 @@
 ToNBRClass <- function(prefire, postfire) {
 
   # classify
-  #SEVERITY LEVEL Enhanced Regrowth High - 1, Enhanced Regrowth Low - 2, Unburned - 3;
-  #Low Severity - 4, Moderate-low Severity - 5, Moderate-high Severity - 6, High Severity - 7.
-  #dNBR RANGE -500 to -251 -250 to -101 -100 to +99 +100 to +269 +270 to +439 +440 to +659 +660 to +1300
-￼￼m <- c(-500, -251, 1, -205, -101, 2, -100, 99, 3, 100, 269, 4, 270, 439, 5, 440, 659, 6, 660, 1300, 7)
   class.mat <- matrix(m, ncol=3, byrow=TRUE)
 
   reclass <- reclassify(10^3 * dNBR(prefire, postfire), class.mat)
