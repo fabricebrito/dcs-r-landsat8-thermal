@@ -17,12 +17,12 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="${artifactId}">
       </defaultJobconf>
     </jobTemplate>
   </jobTemplates>
-  <workflow id="myworkflow" title="My workflow" abstract="This is my workflow">
+  <workflow id="myworkflow" title="My workflow" abstract="RGB or Gray image (Descending or Ascending orbit)">
     <workflowVersion>1.0</workflowVersion>
     <node id="n-bt-proc">
       <job id="bt-proc"/>
       <sources>
-        <source refid="cas:series">http://catalogue.terradue.int/catalogue/search/LANDSAT_8/rdf</source>-->
+        <source refid="cas:series">http://catalogue.terradue.int/catalogue/search/LANDSAT_8/rdf</source>
       </sources>
       <parameters>
         <!--<parameter id="param1">value3</parameter>-->
