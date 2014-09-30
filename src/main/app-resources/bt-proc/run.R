@@ -6,9 +6,9 @@ library("rgeos")
 library(stringr)
 
 # load the application package when mvn installed it
-library(rLandsat8)
+library(rLandsat8, lib.loc="/application/share/R/library")
 
-#load("/application/.usgs.cred.rdata")
+load("/application/.usgs.cred.rdata")
 
 # read the inputs coming from stdin
 f <- file("stdin")
@@ -26,17 +26,18 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
  
   # download Landsat 8 product
   rciop.log("INFO", paste("downloading", ls8.url, "to", ls8.identifier, sep=" "))
-  rciop.copy (url=ls8.downloadUrl, target=TMPDIR)
+  rciop.copy (url=ls8.downloadUrl, target=TMPDIR, uncompress=FALSE)
   
   # extract the compressed Landsat 8 product
-  #rciop.log("INFO", paste("extracting product", ls8.identifier))
-  #untar(paste0(ls8.identifier))
+  rciop.log("INFO", paste("extracting product", ls8.identifier))
+  untar(paste(TMPDIR, "/", ls8.identifier ,".tar.gz", sep=""), exdir = ls8.identifier)
   
   ls8.polygon <- rciop.casmeta(field="dct:spatial", url=ls8.ref)$output
   # loading the bounding box
   the.polygon<-readWKT(ls8.polygon)
 
   # crop the image taking the 60% of the image 
+  rciop.log("INFO", paste("computing the extent object to crop the images"))
   delta.x <- abs(the.polygon@bbox["x","max"] - the.polygon@bbox["x","min"])
   delta.y <- abs(the.polygon@bbox["y","max"] - the.polygon@bbox["y","min"])
   xmin <- as.integer((the.polygon@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
@@ -44,13 +45,13 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
   ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
   ext <- extent(xmin, xmax, ymin, ymax)
-
+  rciop.log("INFO", paste("xmin:",xmin,"ymin:",ymin,"xmax:",xmax,""))
 
   # read the data
   ls8 <- ReadLandsat8(ls8.identifier, ext)
   
   ls8.png <- paste0(TMPDIR, "/", ls8.identifier, ".png")
-  ls8.tif <- paste0(TMPDIR, "/", ls8.identifier, ".tif")
+  # ls8.tif <- paste0(TMPDIR, "/", ls8.identifier, ".tif")
   if(GetOrbitDirection(ls8)=='A'){
     # ascending direction, execute thermal analysis  
     raster.image <- ToRGB(ls8$band$tirs1)
@@ -68,19 +69,19 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
     dev.off()
   }
   # saving geotif raster
-  #writeRaster(thermal, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
+  # writeRaster(thermal, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
   
   # publish it
-  #res <- rciop.publish(ls8.png, FALSE, FALSE)
-  #if (res$exit.code==0) { published <- res$output }
+  # res <- rciop.publish(ls8.png, FALSE, FALSE)
+  # if (res$exit.code==0) { published <- res$output }
   
-  #res <- rciop.publish(ls8.tif, FALSE, FALSE)
-  #if (res$exit.code==0) { published <- res$output }
+  # res <- rciop.publish(ls8.tif, FALSE, FALSE)
+  # if (res$exit.code==0) { published <- res$output }
 
   # clean up
-  #file.remove(ls8.png)
-  #file.remove(ls8.tif)
-  #junk <- dir(path=TMPDIR, pattern=ls8.identifier)
+  # file.remove(ls8.png)
+  # file.remove(ls8.tif)
+  # junk <- dir(path=TMPDIR, pattern=ls8.identifier)
 
-  #rciop.log("DEBUG", junk)
+  # rciop.log("DEBUG", junk)
 }
