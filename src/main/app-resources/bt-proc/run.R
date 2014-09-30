@@ -6,9 +6,8 @@ library("rgeos")
 library(stringr)
 
 # load the application package when mvn installed it
-library(rLandsat8, lib.loc="/application/share/R/library")
+library(rLandsat8)
 
-load("/application/.usgs.cred.rdata")
 
 # read the inputs coming from stdin
 f <- file("stdin")
