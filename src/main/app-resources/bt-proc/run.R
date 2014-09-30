@@ -37,12 +37,12 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   the.polygon<-readWKT(ls8.polygon)
 
   # crop the image taking the 60% of the image 
-  delta.x <- abs(the.polygoin@bbox["x","max"] - the.polygoin@bbox["x","min"])
-  delta.y <- abs(the.polygoin@bbox["y","max"] - the.polygoin@bbox["y","min"])
-  xmin <- as.integer((the.polygoin@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
-  xmax <- as.integer((the.polygoin@bbox["x","max"] - ( delta.x * 0.6 ) / 2))
-  ymin <- as.integer((the.polygoin@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
-  ymax <- as.integer((the.polygoin@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
+  delta.x <- abs(the.polygon@bbox["x","max"] - the.polygon@bbox["x","min"])
+  delta.y <- abs(the.polygon@bbox["y","max"] - the.polygon@bbox["y","min"])
+  xmin <- as.integer((the.polygon@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
+  xmax <- as.integer((the.polygon@bbox["x","max"] - ( delta.x * 0.6 ) / 2))
+  ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
+  ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
   ext <- extent(xmin, xmax, ymin, ymax)
 
 
