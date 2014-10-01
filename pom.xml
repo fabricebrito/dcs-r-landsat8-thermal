@@ -101,7 +101,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+<!--			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
@@ -121,12 +121,13 @@
 								<argument>INSTALL</argument>
 								<argument>-l</argument>
 								<argument>/application/share/R/library</argument>
-								<argument>${project.build.directory}/R/src/ReoWBcckp_${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.tar.gz</argument>
+								<argument>${project.build.directory}/R/src/rLandsat8_${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}.tar.gz</argument>
 							</arguments>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
+		-->
 <!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
