@@ -33,16 +33,25 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   
   ls8.polygon <- rciop.casmeta(field="dct:spatial", url=ls8.ref)$output
   # loading the bounding box
-  the.polygon<-readWKT(ls8.polygon)
+  # the.polygon<-readWKT(ls8.polygon)
+
 
   # crop the image taking the 60% of the image 
   rciop.log("INFO", paste("computing the extent object to crop the images"))
-  delta.x <- abs(the.polygon@bbox["x","max"] - the.polygon@bbox["x","min"])
-  delta.y <- abs(the.polygon@bbox["y","max"] - the.polygon@bbox["y","min"])
-  xmin <- as.integer((the.polygon@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
-  xmax <- as.integer((the.polygon@bbox["x","max"] - ( delta.x * 0.6 ) / 2))
-  ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
-  ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
+  full.raster <- ReadLandsat8(ls8.identifier)
+  delta.x <- abs(full.raster$band$aerosol@extent@xmax - full.raster$band$aerosol@extent@xmin)
+  delta.y <- abs(full.raster$band$aerosol@extent@ymax - full.raster$band$aerosol@extent@ymin)
+  xmin <- as.integer((full.raster$band$aerosol@extent@xmin + ( delta.x * 0.6 ) / 2))
+  xmax <- as.integer((full.raster$band$aerosol@extent@xmax - ( delta.x * 0.6 ) / 2))
+  ymin <- as.integer((full.raster$band$aerosol@extent@ymin + ( delta.y * 0.6 ) / 2))
+  ymax <- as.integer((full.raster$band$aerosol@extent@ymax - ( delta.x * 0.6 ) / 2))
+  #delta.x <- abs(the.polygon@bbox["x","max"] - the.polygon@bbox["x","min"])
+  #delta.y <- abs(the.polygon@bbox["y","max"] - the.polygon@bbox["y","min"])
+  #xmin <- as.integer((the.polygon@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
+  #xmax <- as.integer((the.polygon@bbox["x","max"] - ( delta.x * 0.6 ) / 2))
+  #ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
+  #ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
+
   ext <- extent(xmin, xmax, ymin, ymax)
   rciop.log("INFO", paste("xmin:", xmin, "ymin:", ymin, "xmax:", xmax, "ymax", ymax))
 
@@ -74,16 +83,16 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   # writeRaster(thermal, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
   
   # publish it
-  # res <- rciop.publish(ls8.png, FALSE, FALSE)
-  # if (res$exit.code==0) { published <- res$output }
+  res <- rciop.publish(ls8.png, FALSE, FALSE)
+  if (res$exit.code==0) { published <- res$output }
   
   # res <- rciop.publish(ls8.tif, FALSE, FALSE)
   # if (res$exit.code==0) { published <- res$output }
 
   # clean up
-  # file.remove(ls8.png)
+  file.remove(ls8.png)
   # file.remove(ls8.tif)
-  # junk <- dir(path=TMPDIR, pattern=ls8.identifier)
+  junk <- dir(path=TMPDIR, pattern=ls8.identifier)
 
-  # rciop.log("DEBUG", junk)
+  rciop.log("DEBUG", junk)
 }

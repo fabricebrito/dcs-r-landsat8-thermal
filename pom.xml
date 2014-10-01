@@ -61,7 +61,7 @@
 								<include>**/*</include>
 							</includes>
 							<excludes>
-      							<exclude>share*</exclude>
+      							<exclude>share/**</exclude>
 							</excludes>
 							<followSymlinks>false</followSymlinks>
 						</fileset>
