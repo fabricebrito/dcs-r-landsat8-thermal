@@ -6,7 +6,7 @@ library("rgeos")
 library(stringr)
 
 # load the application package when mvn installed it
-library(rLandsat8)
+library(rLandsat8, lib.loc="/application/share/R/library")
 
 
 # read the inputs coming from stdin
@@ -44,14 +44,16 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
   ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
   ext <- extent(xmin, xmax, ymin, ymax)
-  rciop.log("INFO", paste("xmin:",xmin,"ymin:",ymin,"xmax:",xmax,""))
+  rciop.log("INFO", paste("xmin:", xmin, "ymin:", ymin, "xmax:", xmax, "ymax", ymax))
 
   # read the data
+  rciop.log("INFO", paste("Loading", ls8.identifier, "dataset", sep=" "))
   ls8 <- ReadLandsat8(ls8.identifier, ext)
   
   ls8.png <- paste0(TMPDIR, "/", ls8.identifier, ".png")
   # ls8.tif <- paste0(TMPDIR, "/", ls8.identifier, ".tif")
   if(GetOrbitDirection(ls8)=='A'){
+    rciop.log("INFO", paste("Ascending orbit, saving grey image:", ls8.png, sep=" "))
     # ascending direction, execute thermal analysis  
     raster.image <- ToRGB(ls8$band$tirs1)
     # saving png gray file
@@ -60,6 +62,7 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
     dev.off()
 
   }else{
+    rciop.log("INFO", paste("Descending orbit, saving RGB image:", ls8.png, sep=" "))
     # descending direction, get RGB picture
     raster.image <- ToRGB(ls8$band$red, ls8$band$green, ls8$band$blue)
     # saving png color file
