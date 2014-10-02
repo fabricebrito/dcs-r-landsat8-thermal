@@ -8,9 +8,8 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="${artifactId}">
         <parameter id="catalogue">http://catalogue.terradue.int/catalogue/search/LANDSAT_8/rdf</parameter>
           <parameter id="startdate" title="Start date" abstract="Start date of the TOI. Used as queryable for the MERIS Level 1 catalogue" scope="runtime" type="opensearch" target="time:start">2013-12-18T09:35:28</parameter>
           <parameter id="enddate" title="End date" abstract="End date of the TOI. Used as queryable for the MERIS Level 1 catalogue" scope="runtime" type="opensearch" target="time:end">2014-01-11T09:36:00</parameter>
-          <!--
-            <parameter id="bbox" title="Bounding box" abstract="Bounding box expressed as minx,miny,maxx,maxy" scope="runtime" type="opensearch" target="geo:box">14.98,37.74,15.00,37.76</parameter>
-          -->   
+          <parameter id="bbox" title="Bounding box" abstract="Bounding box expressed as minx,miny,maxx,maxy for catalogue query" scope="runtime" type="opensearch" target="geo:box">14.98,37.74,15.00,37.76</parameter>
+          <parameter id="extent" title="AOI extent" abstract="AOI extent expressed as minx,miny,maxx,maxy in UTM coordinates" scope="runtime" type="opensearch" target="geo:box">14.98,37.74,15.00,37.76</parameter>
       </defaultParameters>
       <defaultJobconf>
           <property id="mapred.task.timeout">600000000</property>
