@@ -15,8 +15,6 @@ aoi.extent <- extent(ext[1], ext[3], ext[2], ext[4])
 f <- file("stdin")
 open(f)
 
-
-
 setwd(TMPDIR)
 
 while(length(ls8.ref <- readLines(f, n=1)) > 0) {
