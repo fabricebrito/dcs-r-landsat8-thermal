@@ -9,7 +9,7 @@ library("stringr")
 library(rLandsat8, lib.loc="/application/share/R/library")
 
 aoi.bbox <- as.numeric(unlist(strsplit(rciop.getparam("extent"), ",")))
-aoi.extent <- extent(ext[1], ext[3], ext[2], ext[4])
+aoi.extent <- extent(aoi.bbox[1], aoi.bbox[3], aoi.bbox[2], aoi.bbox[4])
 
 # read the inputs coming from stdin
 f <- file("stdin")
