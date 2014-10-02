@@ -3,11 +3,12 @@
 # load rciop library to access the developer cloud sandbox functions
 library("rciop")
 library("rgeos")
-library(stringr)
+library("stringr")
 
 # load the application package when mvn installed it
 library(rLandsat8, lib.loc="/application/share/R/library")
 
+aoi.extent <- rciop.getparam("extent")
 
 # read the inputs coming from stdin
 f <- file("stdin")
