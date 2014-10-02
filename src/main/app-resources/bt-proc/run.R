@@ -8,11 +8,14 @@ library("stringr")
 # load the application package when mvn installed it
 library(rLandsat8, lib.loc="/application/share/R/library")
 
-aoi.extent <- rciop.getparam("extent")
+aoi.bbox <- as.numeric(unlist(strsplit(rciop.getparam("extent"), ",")))
+aoi.extent <- extent(ext[1], ext[3], ext[2], ext[4])
 
 # read the inputs coming from stdin
 f <- file("stdin")
 open(f)
+
+
 
 setwd(TMPDIR)
 
@@ -32,67 +35,49 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
   rciop.log("INFO", paste("extracting product", ls8.identifier))
   untar(paste(TMPDIR, "/", ls8.identifier ,".tar.gz", sep=""), exdir = ls8.identifier)
   
-  ls8.polygon <- rciop.casmeta(field="dct:spatial", url=ls8.ref)$output
-  # loading the bounding box
-  # the.polygon<-readWKT(ls8.polygon)
-
-
-  # crop the image taking the 60% of the image 
-  rciop.log("INFO", paste("computing the extent object to crop the images"))
-  full.raster <- ReadLandsat8(ls8.identifier)
-  delta.x <- abs(full.raster$band$aerosol@extent@xmax - full.raster$band$aerosol@extent@xmin)
-  delta.y <- abs(full.raster$band$aerosol@extent@ymax - full.raster$band$aerosol@extent@ymin)
-  xmin <- as.integer((full.raster$band$aerosol@extent@xmin + ( delta.x * 0.6 ) / 2))
-  xmax <- as.integer((full.raster$band$aerosol@extent@xmax - ( delta.x * 0.6 ) / 2))
-  ymin <- as.integer((full.raster$band$aerosol@extent@ymin + ( delta.y * 0.6 ) / 2))
-  ymax <- as.integer((full.raster$band$aerosol@extent@ymax - ( delta.x * 0.6 ) / 2))
-  #delta.x <- abs(the.polygon@bbox["x","max"] - the.polygon@bbox["x","min"])
-  #delta.y <- abs(the.polygon@bbox["y","max"] - the.polygon@bbox["y","min"])
-  #xmin <- as.integer((the.polygon@bbox["x","min"] + ( delta.x * 0.6 ) / 2))
-  #xmax <- as.integer((the.polygon@bbox["x","max"] - ( delta.x * 0.6 ) / 2))
-  #ymin <- as.integer((the.polygon@bbox["y","min"] + ( delta.y * 0.6 ) / 2))
-  #ymax <- as.integer((the.polygon@bbox["y","max"] - ( delta.x * 0.6 ) / 2))
-
-  ext <- extent(xmin, xmax, ymin, ymax)
-  rciop.log("INFO", paste("xmin:", xmin, "ymin:", ymin, "xmax:", xmax, "ymax", ymax))
-
   # read the data
   rciop.log("INFO", paste("Loading", ls8.identifier, "dataset", sep=" "))
-  ls8 <- ReadLandsat8(ls8.identifier, ext)
+  ls8 <- ReadLandsat8(ls8.identifier, aoi.extent)
   
   ls8.png <- paste0(TMPDIR, "/", ls8.identifier, ".png")
-  # ls8.tif <- paste0(TMPDIR, "/", ls8.identifier, ".tif")
-  if(GetOrbitDirection(ls8)=='A'){
+  ls8.tif <- paste0(TMPDIR, "/", ls8.identifier, ".tif")
+ 
+  if (GetOrbitDirection(ls8)=='A') {
     rciop.log("INFO", paste("Ascending orbit, saving grey image:", ls8.png, sep=" "))
+    
     # ascending direction, execute thermal analysis  
     raster.image <- ToRGB(ls8$band$tirs1)
+    writeRaster(raster.image, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
+    
     # saving png gray file
     png(filename = ls8.png)
     plot(raster.image, col=grey(rev(seq(0, 1, by = 1/255))))
     dev.off()
 
-  }else{
+  } else {
+    
     rciop.log("INFO", paste("Descending orbit, saving RGB image:", ls8.png, sep=" "))
     # descending direction, get RGB picture
     raster.image <- ToRGB(ls8$band$red, ls8$band$green, ls8$band$blue)
+    writeRaster(raster.image, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
+    
     # saving png color file
     png(filename = ls8.png)
     plotRGB(raster.image, r=1, g=2, b=3)
     dev.off()
   }
-  # saving geotif raster
-  # writeRaster(thermal, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
-  
+
   # publish it
-  res <- rciop.publish(ls8.png, FALSE, FALSE)
+  res <- rciop.publish(ls8.png, recursive=FALSE, metalink=TRUE)
   if (res$exit.code==0) { published <- res$output }
   
-  # res <- rciop.publish(ls8.tif, FALSE, FALSE)
-  # if (res$exit.code==0) { published <- res$output }
+  # publish it
+  res <- rciop.publish(ls8.tif, recursive=FALSE, metalink=TRUE)
+  if (res$exit.code==0) { published <- res$output }
 
   # clean up
   file.remove(ls8.png)
-  # file.remove(ls8.tif)
+  file.remove(ls8.tif)
   junk <- dir(path=TMPDIR, pattern=ls8.identifier)
 
   rciop.log("DEBUG", junk)
