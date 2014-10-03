@@ -78,10 +78,8 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
 
   # clean up
   rciop.log("INFO", "Cleaning-up")
-  do.call(file.remove,list(list.files(TMPDIR)))
-  #file.remove(ls8.png)
-  #file.remove(ls8.tif)
-  #junk <- dir(path=TMPDIR, pattern=ls8.identifier)
+  file.remove(ls8.png)
+  file.remove(ls8.tif)
+  unlink(paste(TMPDIR, ls8.identifier, sep="/"), recursive=TRUE)
 
-  #rciop.log("DEBUG", junk)
 }
