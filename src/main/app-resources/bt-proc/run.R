@@ -60,7 +60,7 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
     
     # descending direction, get RGB picture
     raster.image <- ToRGB(ls8, "swir2", "nir", "green") 
-    writeRaster(raster.image, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
+    writeRaster(raster.image, filename=ls8.tif, format="GTiff", dataType="INT1U", overwrite=TRUE) 
     
     # saving png
     png(filename = ls8.png)
