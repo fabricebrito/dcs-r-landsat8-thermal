@@ -17,7 +17,7 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="${artifactId}">
       </defaultJobconf>
     </jobTemplate>
   </jobTemplates>
-  <workflow id="myworkflow" title="Landsat 8 volcano monitoring" abstract="Creates TIRS1 band for ascending and RGB of OLI swir2, nir and green for descending scenes">
+  <workflow id="Volcano" title="Landsat 8 volcano monitoring" abstract="Creates TIRS1 band for ascending and RGB of OLI swir2, nir and green for descending scenes">
     <workflowVersion>1.0</workflowVersion>
     <node id="n-bt-proc">
       <job id="bt-proc"/>
