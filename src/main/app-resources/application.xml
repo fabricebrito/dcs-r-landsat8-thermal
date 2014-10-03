@@ -13,6 +13,7 @@ xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="${artifactId}">
       </defaultParameters>
       <defaultJobconf>
           <property id="mapred.task.timeout">600000000</property>
+          <property id="ciop.job.max.tasks">1</property>
       </defaultJobconf>
     </jobTemplate>
   </jobTemplates>

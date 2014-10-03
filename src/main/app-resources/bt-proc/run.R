@@ -44,7 +44,7 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
     rciop.log("INFO", paste("Ascending orbit, saving grey image:", ls8.png, sep=" "))
     
     # ascending direction, execute thermal analysis  
-    raster.image <- ToRGB(ls8$band$tirs1)
+    raster.image <- ls8$band$tirs1
     writeRaster(raster.image, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
     
     # saving png gray file
@@ -56,7 +56,7 @@ while(length(ls8.ref <- readLines(f, n=1)) > 0) {
     
     rciop.log("INFO", paste("Descending orbit, saving RGB image:", ls8.png, sep=" "))
     # descending direction, get RGB picture
-    raster.image <- ToRGB(ls8$band$red, ls8$band$green, ls8$band$blue)
+    raster.image <- ToRGB(ls8, "swir2", "nir", "green") 
     writeRaster(raster.image, filename=ls8.tif, format="GTiff", overwrite=TRUE) 
     
     # saving png color file
